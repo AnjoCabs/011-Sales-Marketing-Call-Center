@@ -26,23 +26,16 @@ CREATE TABLE callcenterdataset
 	Repeat_Customer VARCHAR(50),
 	Reason_Call_Abandoned VARCHAR(50));
 
-SET GLOBAL local_infile = 1;
-
-LOAD DATA LOCAL INFILE 'C:/Users/billy/Desktop/DataSets/SalesMarketingCallCenter.csv'
-INTO TABLE callcenterdataset
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES;
-
-
 -- Explaratory Data Analisys ( EDA)
 
 -- 1. How many total calls got?
+
 SELECT
 	COUNT(call_ID)
 FROM callcenterdataset;
 
 -- 2. Count of Calls  base on the call_outcome
+
 SELECT
 	Call_Outcome,
     COUNT(*) AS call_count
@@ -50,6 +43,7 @@ FROM callcenterdataset
 GROUP BY Call_Outcome;
 
 -- 3. Number of call base on gender
+
 SELECT
 	Customer_Gender,
     COUNT(*) AS call_count
@@ -57,6 +51,7 @@ FROM callcenterdataset
 GROUP BY Customer_Gender;
 
 -- 4. Number of call base on agent
+
 SELECT
 	CONCAT( Agent_First_Name, ' ', Agent_Last_Name) AS full_name,
     COUNT(*) AS call_count
@@ -67,6 +62,7 @@ ORDER BY call_count DESC;
 
 
 -- 5. who is the agent that has biggest abandoned calls
+
 SELECT
 	CONCAT( Agent_First_Name, ' ', Agent_Last_Name) AS full_name,
     COUNT(Call_Outcome) AS call_count
@@ -77,6 +73,7 @@ ORDER BY call_count DESC;
 
 
 -- 6. percentage of abandoned calls of agent base on the total calls they got
+
 SELECT
     CONCAT(Agent_First_Name, ' ', Agent_Last_Name) AS full_name,
     COUNT(CASE WHEN Call_Outcome = 'Abandoned' THEN 1 END) AS abandoned_calls,
@@ -87,6 +84,7 @@ GROUP BY full_name
 ORDER BY abandoned_percentage DESC;
 
 -- 7. agent that has highest success calls
+
 SELECT
 	CONCAT(Agent_First_Name, ' ', Agent_Last_Name) AS full_name,
     COUNT(CASE WHEN Call_Outcome = 'Success' THEN 1 END) AS success_calls,
@@ -97,6 +95,7 @@ GROUP BY full_name
 ORDER BY success_calls DESC;
 
 -- 8. Who has the highest calls base on time
+
 SELECT
 	CONCAT(Agent_First_Name, ' ', Agent_Last_Name) AS full_name,
     SUM(Call_Duration_Minutes) AS total_time
@@ -105,6 +104,7 @@ GROUP BY full_name
 ORDER BY total_time DESC;
 
 -- 9.  What is the most common why calls abandoned
+
 SELECT
 	Reason_Call_Abandoned,
     COUNT(*) AS count_per_reason
@@ -113,6 +113,7 @@ GROUP BY Reason_Call_Abandoned
 ORDER BY count_per_reason DESC;
 
 -- 10. What time of the day has the highest number of call
+
 SELECT
 	Time_of_Day,
     COUNT(*) AS count_
@@ -121,6 +122,7 @@ GROUP BY Time_of_Day
 ORDER BY count_ DESC;
 
 -- 11. What state has the highest abandoned and success
+
 SELECT
 	state,
     COUNT(CASE WHEN Call_Outcome = 'Success' THEN 1 END) AS success_call,
@@ -133,6 +135,7 @@ ORDER BY
     abandoned_call DESC;
 
 -- 12. What is the common product discussed with success outcome 
+
 SELECT
 	Product_Discussed,
     COUNT(CASE WHEN Call_Outcome = 'Success' THEN 1 END) AS count_success
@@ -141,6 +144,7 @@ GROUP BY  Product_Discussed
 ORDER BY count_success DESC;
 
 -- 13. Number of repeat caller
+
 SELECT
 	COUNT(*) AS number_repeatCustomer
 FROM callcenterdataset
@@ -148,6 +152,7 @@ WHERE Repeat_Customer = 'Yes';
 
 
 -- 14. What is the most common product talked by the repeat customer
+
 SELECT
 		Product_Discussed,
         COUNT(CASE WHEN Repeat_Customer = 'Yes' THEN 1 END) AS count
@@ -157,6 +162,7 @@ SELECT *
 FROM callcenterdataset;
 
 -- 15. what day has the most calls
+
 SELECT
     DAYNAME(date) AS day_ofDate,
     COUNT(*) AS count
