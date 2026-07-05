@@ -9,6 +9,7 @@ The repository contains 15 SQL queries that provide actionable insights into cal
 
 📊 Business Questions Solved
 📞 Call Volume Analysis
+
 1. Total number of calls received
 Calculates the total number of calls handled by the call center.
 
@@ -35,6 +36,7 @@ Measures agent performance by successful call completion.
 Identifies agents who spend the most time assisting customers.
 
 ❌ Call Outcome Analysis
+
 9. Most common reasons for abandoned calls
 Analyzes the primary reasons customers abandon calls.
 
@@ -55,6 +57,7 @@ Calculates how many customers contacted the call center more than once.
 Identifies products frequently discussed by returning customers.
 
 📅 Time-Based Analysis
+
 15. Day of the week with the highest call volume
 Shows which days receive the most customer calls.
 
